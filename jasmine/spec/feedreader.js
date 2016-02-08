@@ -8,7 +8,7 @@
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
  */
-$(function() {
+ $(function() {
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -57,7 +57,7 @@ $(function() {
 
 
     /* TODO: Write a new test suite named "The menu" */
-describe('The menu', function(){
+ describe('The menu', function(){
 
 
         /* TODO: Write a test that ensures the menu element is
@@ -68,25 +68,76 @@ describe('The menu', function(){
         it('Slider menu must be hidden by default', function(){
            expect( $( ".slide-menu" ).css( "transform" )).toBe("matrix(1, 0, 0, 1, -192, 0)");
         });
+        
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-});
-    /* TODO: Write a new test suite named "Initial Entries" */
+        describe('Menu hide show function', function(){
 
+                var menuIconLink = $( ".menu-icon-link" );
+                
+                beforeEach(function() {
+                    menuIconLink.click();
+                });
+                   
+                 it('Slider menu shows on click of menu icon', function(){
+                        expect($("body").hasClass("menu-hidden")).toBe(false); 
+                 });       
+                 
+                 it('Slider menu hides on second click of menu icon', function(){
+                       expect($("body").hasClass("menu-hidden")).toBe(true);
+                 });
+                 
+        });          
+ });
+   
+
+
+    /* TODO: Write a new test suite named "Initial Entries" */
+ describe('Initial Entries', function(){
+        
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+         beforeEach(function(done) {
+            loadFeed(0, function(){
+            done();
+            });        
+         });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
 
+         it('.feed container should have one or more entries', function(done){
+          
+            expect($(".feed .entry").length).toBeGreaterThan(0);
+            done();
+         });
+
+ });
+    // TODO: Write a new test suite named "New Feed Selection"
+ describe('New Feed Selection', function(){
+        
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+        beforeEach(function(done){
+            $(".feed .entry h2");
+        
+          $(".feed-list li")[1];
+        
+            done();
+        })
+
+        it('articles should change on click on a new link from the side bar', function(done){
+            expect($(".feed .entry h2")).not.toBe($(".feed .entry h2"));
+            done();
+        });
+
+ });
 }());
