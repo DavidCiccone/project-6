@@ -83,11 +83,9 @@ $(function() {
             //each function reads the text of the first entry and stores in within the respective variable
             loadFeed(1, function() {
                 firstList = $("h2")[0];
-                console.log(firstList);
                 //second loadFeed is nested within the first    
                 loadFeed(2, function() {
                     secondList = $("h2")[1];
-                    console.log(secondList);
                     done();
                 });
             });
