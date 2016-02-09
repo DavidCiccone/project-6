@@ -1,117 +1,115 @@
 // feedreader.js
+$(function() {
 
- $(function() {
- 
     describe('RSS Feeds', function() {
-      
+
         //Tests that the allFeeds variable is defined and not empty
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
-            //loops through each feed in the allFeeds object and ensures it has a URL defined and that the URL is not empty.      
-            it('Each object within allFeeds should have a URL and it should not be empty', function() {
-            
-            for(var i = 0; i < allFeeds.length; i++){
+        //loops through each feed in the allFeeds object and ensures it has a URL defined and that the URL is not empty.      
+        it('Each object within allFeeds should have a URL and it should not be empty', function() {
+
+            for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url).not.toBeNull();
                 expect(allFeeds[i].url).not.toEqual('');
             }
-            });
-        
-           //loops through each feed in the allFeeds object and ensures it has a name defined and that the name is not empty.
-           it('Each object within allFeeds should have a name and it should not be empty', function() {
-            for(var i = 0; i < allFeeds.length; i++){
+        });
+
+        //loops through each feed in the allFeeds object and ensures it has a name defined and that the name is not empty.
+        it('Each object within allFeeds should have a name and it should not be empty', function() {
+            for (var i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name).not.toBeNull();
                 expect(allFeeds[i].name).not.toEqual('');
             }
-            });
+        });
     });
 
 
     //// Test suite named "The menu".
- describe('The menu', function(){
+    describe('The menu', function() {
 
-         //Tests that the menu element is hidden by default. It does this by testing for the physical posistion of the menu
-        it('Slider menu must be hidden by default', function(){
-           expect( $( ".slide-menu" ).css( "transform" )).toBe("matrix(1, 0, 0, 1, -192, 0)");
+        //Tests that the menu element is hidden by default. It does this by testing for the physical posistion of the menu
+        it('Slider menu must be hidden by default', function() {
+            expect($(".slide-menu").css("transform")).toBe("matrix(1, 0, 0, 1, -192, 0)");
         });
-        
+
         //Tests that when the menu icon is clicked it displays and then hides on a second click
-        describe('Menu hide show function', function(){
+        describe('Menu hide show function', function() {
 
-                var menuIconLink = $( ".menu-icon-link" );
-                
-                beforeEach(function() {
-                    menuIconLink.click();
-                });
-                   
-                 it('Slider menu shows on click of menu icon', function(){
-                        expect($("body").hasClass("menu-hidden")).toBe(false); 
-                 });       
-                 
-                 it('Slider menu hides on second click of menu icon', function(){
-                       expect($("body").hasClass("menu-hidden")).toBe(true);
-                 });
-                 
-        });          
- });
-   
+            var menuIconLink = $(".menu-icon-link");
+
+            beforeEach(function() {
+                menuIconLink.click();
+            });
+
+            it('Slider menu shows on click of menu icon', function() {
+                expect($("body").hasClass("menu-hidden")).toBe(false);
+            });
+
+            it('Slider menu hides on second click of menu icon', function() {
+                expect($("body").hasClass("menu-hidden")).toBe(true);
+            });
+
+        });
+    });
 
 
- // Test suite named "Initial Entries"
- describe('Initial Entries', function(){
-        
-         //testes that when loadFeed() is called it loads the desired feed and content is present 
-         beforeEach(function(done) {
-            loadFeed(0, function(){
-            done();
-            });        
-         });
 
-         it('.feed container should have one or more entries', function(done){
+    // Test suite named "Initial Entries"
+    describe('Initial Entries', function() {
+
+        //testes that when loadFeed() is called it loads the desired feed and content is present 
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
+
+        it('.feed container should have one or more entries', function(done) {
             expect($(".feed .entry").length).toBeGreaterThan(0);
             done();
-         });
- });
- 
- // Test suite named "New Feed Selection"
- describe('New Feed Selection', function(){
+        });
+    });
+
+    // Test suite named "New Feed Selection"
+    describe('New Feed Selection', function() {
         var firstList,
             secondList;
-      
-    //Tests that when the load feed function is called it loads a new feed
-    beforeEach(function(done){
-         //each function reads the text of the first entry and stores in within the respective variable
-         loadFeed(1, function(){
-            firstList = $(".feed .entry h2").text();
-            title
-         });
-         loadFeed(2, function(){
-            secondList = $(".feed .entry h2").text();
-            done();
-         });
-    });
+
+        //Tests that when the load feed function is called it loads a new feed
+        beforeEach(function(done) {
+            //each function reads the text of the first entry and stores in within the respective variable
+            loadFeed(1, function() {
+                firstList = $(".feed .entry h2").text();
+            });
+            loadFeed(2, function() {
+                secondList = $(".feed .entry h2").text();
+                done();
+            });
+        });
         //Variale are them compaired against one another. if they do not match the test passes.
-        it('content should change on load of a new feed', function(done){
-          expect(firstList).not.toBe(secondList);
-          done();
+        it('content should change on load of a new feed', function(done) {
+            expect(firstList).not.toBe(secondList);
+            done();
         });
 
-    
-//Additional test to check if an element within the article tage has the class ".date".
-//assumes it would be within an element with the class ".date".
-//This would contain the date the article was published. Currently this test fails.
-    describe('Entries', function(){
 
-        it('date each article was published should be included beneath each title', function(){
-            expect($( "article" ).hasClass( "date" )).toBe(true);
+        //Additional test to check if an element within the article tage has the class ".date".
+        //assumes it would be within an element with the class ".date".
+        //This would contain the date the article was published. Currently this test fails.
+        describe('Entries', function() {
+
+            it('date each article was published should be included beneath each title', function() {
+                expect($("article").hasClass("date")).toBe(true);
+            });
         });
+
+
+
     });
-
-
-
- });
 }());
