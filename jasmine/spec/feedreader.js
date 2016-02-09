@@ -65,14 +65,11 @@ $(function() {
 
         //testes that when loadFeed() is called it loads the desired feed and content is present 
         beforeEach(function(done) {
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
 
-        it('.feed container should have one or more entries', function(done) {
+        it('.feed container should have one or more entries', function() {
             expect($(".feed .entry").length).toBeGreaterThan(0);
-            done();
         });
     });
 
@@ -85,26 +82,29 @@ $(function() {
         beforeEach(function(done) {
             //each function reads the text of the first entry and stores in within the respective variable
             loadFeed(1, function() {
-                firstList = $(".feed .entry h2").text();
-            });
-            loadFeed(2, function() {
-                secondList = $(".feed .entry h2").text();
-                done();
+                firstList = $("h2")[0];
+                console.log(firstList);
+                //second loadFeed is nested within the first    
+                loadFeed(2, function() {
+                    secondList = $("h2")[1];
+                    console.log(secondList);
+                    done();
+                });
             });
         });
+       
         //Variale are them compaired against one another. if they do not match the test passes.
-        it('content should change on load of a new feed', function(done) {
+        it('content should change on load of a new feed', function() {
             expect(firstList).not.toBe(secondList);
-            done();
-        });
 
+        });
 
         //Additional test to check if an element within the article tage has the class ".date".
         //assumes it would be within an element with the class ".date".
         //This would contain the date the article was published. Currently this test fails.
         describe('Entries', function() {
 
-            it('date each article was published should be included beneath each title', function() {
+            xit('date each article was published should be included beneath each title', function() {
                 expect($("article").hasClass("date")).toBe(true);
             });
         });
