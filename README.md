@@ -13,4 +13,6 @@ This information could be retrieved from the ajax call.
 
 The date would be withing an element with the class ".date".
 
+Tests are located in jasmine/spec/feedreader.js
+
 
