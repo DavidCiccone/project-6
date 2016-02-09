@@ -1,79 +1,45 @@
-/* feedreader.js
- *
- * This is the spec file that Jasmine will read and contains
- * all of the tests that will be run against your application.
- */
+// feedreader.js
 
-/* We're placing all of our tests within the $() function,
- * since some of these tests may require DOM elements. We want
- * to ensure they don't run until the DOM is ready.
- */
  $(function() {
-    /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
+ 
     describe('RSS Feeds', function() {
-        /* This is our first test - it tests to make sure that the
-         * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
-         */
+      
+        //Tests that the allFeeds variable is defined and not empty
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
-         var emptyString = '';
-            
+            //loops through each feed in the allFeeds object and ensures it has a URL defined and that the URL is not empty.      
             it('Each object within allFeeds should have a URL and it should not be empty', function() {
             
             for(var i = 0; i < allFeeds.length; i++){
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url).not.toBeNull();
-                expect(allFeeds[i].url).not.toEqual(emptyString);
+                expect(allFeeds[i].url).not.toEqual('');
             }
             });
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
+        
+           //loops through each feed in the allFeeds object and ensures it has a name defined and that the name is not empty.
            it('Each object within allFeeds should have a name and it should not be empty', function() {
             for(var i = 0; i < allFeeds.length; i++){
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name).not.toBeNull();
-                expect(allFeeds[i].name).not.toEqual(emptyString);
+                expect(allFeeds[i].name).not.toEqual('');
             }
             });
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    //// Test suite named "The menu".
  describe('The menu', function(){
 
-
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+         //Tests that the menu element is hidden by default. It does this by testing for the physical posistion of the menu
         it('Slider menu must be hidden by default', function(){
            expect( $( ".slide-menu" ).css( "transform" )).toBe("matrix(1, 0, 0, 1, -192, 0)");
         });
         
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+        //Tests that when the menu icon is clicked it displays and then hides on a second click
         describe('Menu hide show function', function(){
 
                 var menuIconLink = $( ".menu-icon-link" );
@@ -95,49 +61,57 @@
    
 
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+ // Test suite named "Initial Entries"
  describe('Initial Entries', function(){
         
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+         //testes that when loadFeed() is called it loads the desired feed and content is present 
          beforeEach(function(done) {
             loadFeed(0, function(){
             done();
             });        
          });
 
-
          it('.feed container should have one or more entries', function(done){
-          
             expect($(".feed .entry").length).toBeGreaterThan(0);
             done();
          });
-
  });
-    // TODO: Write a new test suite named "New Feed Selection"
+ 
+ // Test suite named "New Feed Selection"
  describe('New Feed Selection', function(){
-        
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-
-        beforeEach(function(done){
-            $(".feed .entry h2");
-        
-          $(".feed-list li")[1];
-        
+        var firstList,
+            secondList;
+      
+    //Tests that when the load feed function is called it loads a new feed
+    beforeEach(function(done){
+         //each function reads the text of the first entry and stores in within the respective variable
+         loadFeed(1, function(){
+            firstList = $(".feed .entry h2").text();
+            title
+         });
+         loadFeed(2, function(){
+            secondList = $(".feed .entry h2").text();
             done();
-        })
-
-        it('articles should change on click on a new link from the side bar', function(done){
-            expect($(".feed .entry h2")).not.toBe($(".feed .entry h2"));
-            done();
+         });
+    });
+        //Variale are them compaired against one another. if they do not match the test passes.
+        it('content should change on load of a new feed', function(done){
+          expect(firstList).not.toBe(secondList);
+          done();
         });
+
+    
+//Additional test to check if an element within the article tage has the class ".date".
+//assumes it would be within an element with the class ".date".
+//This would contain the date the article was published. Currently this test fails.
+    describe('Entries', function(){
+
+        it('date each article was published should be included beneath each title', function(){
+            expect($( "article" ).hasClass( "date" )).toBe(true);
+        });
+    });
+
+
 
  });
 }());
