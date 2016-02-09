@@ -1,5 +1,5 @@
-# project-6
-feed reader testing
+# Project-6
+###Feed Reader Testing with Jasmine
 
 To run the application open index.html.  Page will load and tests will run on start.
 
