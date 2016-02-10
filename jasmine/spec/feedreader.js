@@ -82,10 +82,10 @@ $(function() {
         beforeEach(function(done) {
             //each function reads the text of the first entry and stores in within the respective variable
             loadFeed(1, function() {
-                firstList = $("h2")[0];
+                firstList = $(".feed .entry h2").text();
                 //second loadFeed is nested within the first    
                 loadFeed(2, function() {
-                    secondList = $("h2")[1];
+                    secondList = $(".feed .entry h2").text();
                     done();
                 });
             });
