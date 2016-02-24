@@ -1,6 +1,8 @@
 # Project-6
 ###Feed Reader Testing with Jasmine
 
+Wrote comprehensive unit tests, using the Jasmine testing framework, for an RSS Feed Reader application that uses Google's RSS API.
+
 To run the application open index.html.  Page will load and tests will run on start.
 
 Results show at the bottom of the page.
